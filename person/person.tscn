@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://bm5mecarqvxrw"]
+
+[ext_resource type="Script" uid="uid://ccacor0hh18ie" path="res://person/person.gd" id="1_0rxw3"]
+[ext_resource type="Texture2D" uid="uid://bsur34b6pl4nn" path="res://assets/person/guy.png" id="2_ngoep"]
+[ext_resource type="Texture2D" uid="uid://bl5n1ux0snhfa" path="res://assets/person/faces/noface.png" id="3_tp2ef"]
+[ext_resource type="Texture2D" uid="uid://c0n4ds3jh3smi" path="res://assets/person/faces/happy.png" id="3_xv8dq"]
+[ext_resource type="Texture2D" uid="uid://bka11f2vyk10" path="res://assets/person/faces/angry.png" id="5_g5n6b"]
+[ext_resource type="Texture2D" uid="uid://c6wvoi7li6v0u" path="res://assets/person/faces/moli.png" id="6_4rg1v"]
+[ext_resource type="Texture2D" uid="uid://dpxltfvmntunc" path="res://assets/person/faces/patch.png" id="7_w1jbn"]
+[ext_resource type="Texture2D" uid="uid://bgkuv1f70jrsl" path="res://assets/person/faces/sleepy.png" id="8_rn6g6"]
+[ext_resource type="Texture2D" uid="uid://i4leoh86w8t7" path="res://assets/person/faces/suwi.png" id="9_amkgb"]
+[ext_resource type="Texture2D" uid="uid://cuimbusexrlxq" path="res://assets/person/accessory/jacket.png" id="10_4rg1v"]
+[ext_resource type="Texture2D" uid="uid://ct1gwjy7mjwg0" path="res://assets/person/accessory/tie.png" id="11_w1jbn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_44saq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tp2ef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xv8dq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_g5n6b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_4rg1v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_w1jbn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rn6g6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_amkgb")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xwkvk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tp2ef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_4rg1v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_w1jbn")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44saq"]
+size = Vector2(16, 19)
+
+[node name="Person" type="Node2D" unique_id=158071840]
+process_mode = 1
+script = ExtResource("1_0rxw3")
+
+[node name="Body" type="Sprite2D" parent="." unique_id=339988003]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_ngoep")
+
+[node name="Face" type="AnimatedSprite2D" parent="." unique_id=1252727967]
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_44saq")
+
+[node name="Accessory" type="AnimatedSprite2D" parent="." unique_id=1845488200]
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_xwkvk")
+
+[node name="MoveTimer" type="Timer" parent="." unique_id=1218364263]
+one_shot = true
+autostart = true
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=497762298]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=880418472]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_44saq")
+
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+[connection signal="input_event" from="Hitbox" to="." method="_on_hitbox_input_event"]
